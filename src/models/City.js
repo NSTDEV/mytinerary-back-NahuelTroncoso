@@ -14,20 +14,21 @@ const citySchema = new Schema({
         required: true,
     },
     description: {
-        type: String,
-        required: true
+        type: String
     },
     language: {
-        type: String,
-        required: true,
+        type: String
     },
-    currency: {
-        type: String,
-        required: true
+    price: {
+        type: String
     },
-    accounts: [{
+    user: [{
         type: Schema.Types.ObjectId,
-        ref: 'Account'
+        ref: 'User'
+    }],
+    itinerary: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Itinerary',
     }]
 });
 
