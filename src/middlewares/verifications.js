@@ -29,7 +29,7 @@ const verifyCityData = (req, res, next) => {
 }
 
 const verifyItineraryData = (req, res, next) => {
-    let { name, city, description, duration, price } = req.body;
+    let { name, city, activity, price } = req.body;
 
     if (name == "") {
         return res.status(400).json({ message: "Invalid itinerary name..." });
@@ -39,19 +39,11 @@ const verifyItineraryData = (req, res, next) => {
         return res.status(400).json({ message: "Invalid itinerary city..." });
     }
 
-    else if (description == "") {
-        return res.status(400).json({ message: "Invalid itinerary description..." });
-    }
-
-    else if (duration == "") {
-        return res.status(400).json({ message: "Invalid itinerary duration..." });
-    }
-
     else if (price == "") {
         return res.status(400).json({ message: "Invalid itinerary price..." });
     }
 
-    else if (!name || !city || !description || !duration || !price) {
+    else if (!name || !city || !price) {
         return res.status(400).json({ message: "Invalid data..." });
     };
 

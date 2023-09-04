@@ -1,12 +1,5 @@
 const { Schema, model, Types } = require('mongoose');
 
-const tagSchema = new Schema({
-    name: {
-        type: String,
-        required: true,
-    }
-});
-
 const itinerarySchema = new Schema({
     name: {
         type: String,
@@ -17,27 +10,23 @@ const itinerarySchema = new Schema({
         ref: "City",
         required: true,
     },
-    description: {
-        type: String,
-        required: true,
-    },
     activities: [{
         type: Schema.Types.ObjectId,
-        ref: 'Activity'
+        ref: 'Activity',
+        required: true
     }],
-    duration: {
-        type: Number,
-        required: true,
-    },
     price: {
         type: Number,
         required: true,
     },
-    tags: [tagSchema],
+    tags: [{
+        type: String,
+        required: true
+    }],
     comments: [{
         type: String
     }],
-    createdBy: {
+    user: {
         type: Schema.Types.ObjectId,
         ref: 'User'
     }

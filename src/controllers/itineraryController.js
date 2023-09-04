@@ -1,5 +1,6 @@
 const Itinerary = require("../models/Itinerary");
 const City = require("../models/City");
+const Activity = require("../models/Activity")
 
 const getItineraries = async (req, res) => {
     try {
@@ -41,11 +42,15 @@ const createItinerary = async (req, res) => {
 
         const city = await City.findById(cityId);
         if (!city) {
-            return res.status(404).json({ message: "City not found" });
+            return res.status(404).json({ message: 'City not found' });
         } else {
+            const activitiesData = itineraryData.activities;
+            const activities = await Activity.create(activitiesData);
+
             const newItinerary = new Itinerary({
                 ...itineraryData,
                 city: cityId,
+                activities: activities.map((activity) => activity._id),
             });
 
             const createdItinerary = await newItinerary.save();
