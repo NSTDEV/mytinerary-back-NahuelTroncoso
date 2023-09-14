@@ -1,4 +1,4 @@
-const { Schema, model, Types } = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 const activitySchema = new Schema({
     name: {
@@ -6,7 +6,7 @@ const activitySchema = new Schema({
         required: true,
     },
     duration: {
-        type: Number,
+        type: String,
         required: true,
     },
 });

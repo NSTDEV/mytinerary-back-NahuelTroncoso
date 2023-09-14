@@ -1,18 +1,18 @@
 const express = require('express');
-const router = express.Router();
+const itineraryRouter = express.Router();
 
 const { getItineraries, getItinerary, getItinerariesByCity, createItinerary, updateItinerary, deleteItinerary } = require("../controllers/itineraryController");
 
 const { verifyItineraryData } = require("../middlewares/verifications");
 
-router.get("/itineraries", getItineraries);
-router.get("/itineraries/:id", getItinerary);
-router.get("/itineraries/city/:cityId", getItinerariesByCity);
+itineraryRouter.get("/itineraries", getItineraries);
+itineraryRouter.get("/itineraries/:id", getItinerary);
+itineraryRouter.get("/itineraries/city/:cityId", getItinerariesByCity);
 
-router.post("/itineraries", verifyItineraryData, createItinerary);
+itineraryRouter.post("/itineraries", verifyItineraryData, createItinerary);
 
-router.delete("/itineraries/delete/:id", deleteItinerary);
+itineraryRouter.delete("/itineraries/delete/:id", deleteItinerary);
 
-router.put("/itineraries/update/:id", verifyItineraryData, updateItinerary);
+itineraryRouter.put("/itineraries/update/:id", verifyItineraryData, updateItinerary);
 
-module.exports = router;
+module.exports = itineraryRouter;

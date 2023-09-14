@@ -2,7 +2,7 @@ const Itinerary = require("../models/Itinerary");
 const City = require("../models/City");
 const Activity = require("../models/Activity")
 
-const getItineraries = async (req, res) => {
+const getItineraries = async (res) => {
     try {
         const itineraries = await Itinerary.find();
         res.status(200).json(itineraries);
@@ -24,11 +24,12 @@ const getItinerariesByCity = async (req, res) => {
 const getItinerary = async (req, res) => {
     try {
         const itineraryId = req.params.id;
-        const itinerary = await Itinerary.findById(itineraryId);
+        const itinerary = await Itinerary.findById(itineraryId).populate('activities');
 
         if (!itinerary) {
-            return res.status(404).json({ message: "Itinerary not found" });
+            return res.status(404).json({ message: 'Itinerary not found' });
         }
+
         res.status(200).json(itinerary);
     } catch (error) {
         res.status(500).json({ message: error.message });

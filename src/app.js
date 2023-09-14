@@ -12,6 +12,7 @@ app.use(express.json());
 app.use(cors());
 app.use('/api', cityRouter);
 app.use('/api', itineraryRouter);
+app.use('/api', userRouter);
 
 const port = process.env.PORT || 4000;
 

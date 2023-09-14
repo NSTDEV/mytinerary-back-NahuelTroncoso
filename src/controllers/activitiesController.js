@@ -61,10 +61,4 @@ const deleteActivityById = async (req, res) => {
     }
 };
 
-module.exports = {
-    createActivity,
-    getActivities,
-    getActivityById,
-    updateActivityById,
-    deleteActivityById,
-};
+module.exports = { createActivity, getActivities, getActivityById, updateActivityById, deleteActivityById };

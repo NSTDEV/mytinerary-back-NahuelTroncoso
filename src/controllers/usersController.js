@@ -1,24 +1,33 @@
 const User = require("../models/User");
-const City = require("../models/City");
 
-const addUser = async (req, res) => {
+const editUser = async (req, res) => {
     try {
-        let { id } = req.query;
+        const { _id } = req.params;
+        const updatedUserData = req.body;
 
-        let cityFound = await City.findById(id);
-        let newUser = await User.create({ userId: "VIN001", name: cityFound });
+        const user = await User.findById({ _id });
 
-        await cityFound.updateOne({ users: [...cityFound.users, newUser] });
-        let cityFoundUpdate = await City.findById(id).populate("users");
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
 
-        res.status(200).json({
-            message: "User has been updated succesfully",
-            city: cityFoundUpdate
-        })
+        if (updatedUserData.name) {
+            user.name = updatedUserData.name;
+        }
 
+        if (updatedUserData.picture) {
+            user.picture = updatedUserData.picture;
+        }
+
+        if (updatedUserData.country) {
+            user.country = updatedUserData.country;
+        }
+
+        await user.save();
+        res.status(200).json({ message: "User edited", user });
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(500).json({ message: error.message });
     }
 };
 
-module.exports = { addUser };
+module.exports = { editUser };

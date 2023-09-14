@@ -21,14 +21,14 @@ const getCities = async (req, res) => {
         const filters = {};
 
         if (req.query.name) {
-            filters.name = { $regex: req.query.name, $options: 'i' };
+            return filters.name = { $regex: req.query.name, $options: 'i' };
         }
 
         if (req.query.country) {
-            filters.country = { $regex: req.query.country, $options: 'i' };
+            return filters.country = { $regex: req.query.country, $options: 'i' };
         }
 
-        const cities = await City.find(filters).populate('user');
+        const cities = await City.find(filters);
         res.status(200).json(cities);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -55,7 +55,6 @@ const addCity = async (req, res) => {
         res.status(500).json({ message: error })
     };
 };
-
 
 const addCities = async (req, res) => {
     try {
@@ -85,19 +84,6 @@ const deleteCity = async (req, res) => {
     };
 };
 
-const deleteAllCities = async (req, res) => {
-    try {
-        const deleteResult = await City.deleteMany();
-
-        res.status(200).json({
-            message: "All cities have been deleted",
-            numDeleted: deleteResult.deletedCount
-        });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-};
-
 const updateCity = async (req, res) => {
     try {
         const { id } = req.params;
@@ -118,19 +104,4 @@ const updateCity = async (req, res) => {
     }
 };
 
-const updateAllCities = async (req, res) => {
-    try {
-        const updatedData = req.body;
-
-        const updateResult = await City.updateMany({}, { $set: updatedData });
-
-        res.status(200).json({
-            message: "All cities have been updated",
-            numAffected: updateResult.nModified
-        });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-};
-
-module.exports = { getCities, getCity, addCity, addCities, deleteCity, updateCity, updateAllCities, deleteAllCities };
+module.exports = { getCities, getCity, addCity, addCities, deleteCity, updateCity };
